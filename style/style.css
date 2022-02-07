@@ -5,7 +5,52 @@ body {
 }
 
 #stemwijzer-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
     width: 750px;
-    margin: 0 auto;
-    background-color: white;
+    border-radius: 15px;
+    background-color: #ffffff;
+    transform: translate(-50%, -50%);
+    box-shadow: 10px 10px 5px;
+}
+
+#inner-stemwijzer {
+    padding: 50px;
+}
+
+.start_title {
+    margin-bottom: 12px;
+    font-weight: 700;
+    font-size: 32px;
+    color: #000;
+    line-height: 100%;
+}
+
+.start_subtitle {
+    margin-bottom: 132px;
+    font-size: 20px;
+    line-height: 120%;
+    color: #000;
+}
+
+.start_button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    border: 3px solid transparent;
+    border-radius: 16px;
+    padding: 21px 29px;
+    background-color: #800080;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 100%;
+    color: #fff;
+    text-align: left;
+    transition: all .15s;
+    cursor: pointer;
+} 
+.start_button:hover {
+    background-color: #5e005e;
 }
