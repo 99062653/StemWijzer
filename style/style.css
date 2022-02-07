@@ -35,10 +35,6 @@ body {
 }
 
 .start_button {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
     border: 3px solid transparent;
     border-radius: 16px;
     padding: 21px 29px;
@@ -47,8 +43,6 @@ body {
     font-size: 22px;
     line-height: 100%;
     color: #fff;
-    text-align: left;
-    transition: all .15s;
     cursor: pointer;
 } 
 .start_button:hover {
