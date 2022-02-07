@@ -25,3 +25,7 @@ function startQuestions() {
     changeElement(_startpagina, _vragenpagina)
 
 }
+
+function backQuestion() {
+    changeElement(_vragenpagina, _startpagina)
+}
