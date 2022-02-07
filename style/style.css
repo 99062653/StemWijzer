@@ -4,7 +4,7 @@ body {
     background-image: url("../img/background.jpg");
 }
 
-#stemwijzer-container {
+#start-container {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -14,7 +14,7 @@ body {
     transform: translate(-50%, -50%);
     box-shadow: 10px 10px 5px;
 }
-#inner-stemwijzer {
+#inner-start {
     padding: 50px;
 }
 
