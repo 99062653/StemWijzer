@@ -8,21 +8,24 @@ var _subtitel = document.getElementById("subtitel-vragen");
 
 function stemwijzerQuestions() {
     var _index = 0;
-    
-    if (_index == 0) {
-        _startpagina.style.visibility = "hidden";
-        _vragenpagina.style.visibility = "visible";
-        loadQuestions(_index)
-    } else {
-        _vragenpagina.style.visibility = "hidden";
-        _startpagina.style.visibility = "visible";
-    }
+
+    _startpagina.style.visibility = "hidden";
+    _vragenpagina.style.visibility = "visible";
+    loadQuestions(_index)
+
 }
 
 function loadQuestions(index) {
-    console.log(subjects[index])
+    if (index == 0) {
+        index = 1;
+    } else {
+        index = index;
+    }
 
-    _counter.innerText = (index + 1) + " / " + subjects.length;
+    var _progressCalculated = index / subjects.length * 100
+
+    _progress.style.width = _progressCalculated + "%";
+    _counter.innerText = index + " / " + subjects.length;
     _titel.innerText = subjects[index].title
     _subtitel.innerText = subjects[index].statement
 }

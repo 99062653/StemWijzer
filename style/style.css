@@ -58,8 +58,7 @@ body {
 }
 
 #progress-vragen {
-    width: 0px;
-    height: 15px;
+    height: 10px;
     background-color: #800080;
 }
 
