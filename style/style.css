@@ -80,3 +80,22 @@ body {
     width: 125px;
     height: 25px;
 }
+
+#titel-vragen {
+    color: #800080;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 44px;   
+}
+
+#subtitel-vragen {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    font-weight: 500;
+    font-size: 36px;
+    color: #000;
+    line-height: 140%;
+    letter-spacing: -.02em;
+}
