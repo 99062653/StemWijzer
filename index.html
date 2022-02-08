@@ -22,7 +22,7 @@
         <div id="inner-vragen">
             <div id="progress-vragen"></div>
             <div id="header-vragen">
-                <button id="buttonback-vragen" onclick="questionBack()"></button>
+                <button id="buttonback-vragen" onclick="questionBackOrNext('back')"></button>
                 <img id="logo-vragen" src="img/logo.svg" alt="Stemwijzer Header Logo">
                 <div id="count-vragen"></div>
             </div>
@@ -31,10 +31,10 @@
                 <h2 id="subtitel-vragen"></h2>
 
                 <div id="buttons-vragen">
-                    <button class="buttons">Eens</button>
-                    <button class="buttons">Geen van beide</button>
-                    <button class="buttons">Oneens</button>
-                    <button class="skip">Overslaan</button>
+                    <button class="buttons" onclick="questionBackOrNext('next')">Eens</button>
+                    <button class="buttons" onclick="questionBackOrNext('next')">Geen van beide</button>
+                    <button class="buttons" onclick="questionBackOrNext('next')">Oneens</button>
+                    <button class="skip" onclick="questionBackOrNext('next')">Overslaan</button>
                 </div>
             </div>
         </div>

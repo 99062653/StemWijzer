@@ -23,8 +23,6 @@ function stemwijzerMain() {
 }
 
 function loadQuestions(index) {
-    index == 0 ? index = 1 : index; //ternary operater: soortgelijk aan if else; ? = true, : = else
-
     var _progressCalculated = index / subjects.length * 100
 
     _progress.style.width = _progressCalculated + "%";
@@ -33,8 +31,9 @@ function loadQuestions(index) {
     _subtitel.innerText = subjects[index].statement
 }
 
-function questionBack() {
-    _index--
+function questionBackOrNext(dir) {
+    dir == "back" ? _index-- : _index++ //ternary operater: soortgelijk aan if else; ? = true, : = else
+    console.log(_index)
     
     stemwijzerMain()
 }
