@@ -69,7 +69,7 @@ body {
     justify-content: space-between;
     height: 67px;
     width: 100%;
-    padding: 19px 32px 0;
+    padding: 19px 32px 5px;
 }
 
 #buttonback-vragen {

@@ -22,19 +22,18 @@
         <div id="inner-vragen">
             <div id="progress-vragen"></div>
             <div id="header-vragen">
-                <button id="buttonback-vragen" onclick="questionBackOrNext('back')"></button>
+                <button id="buttonback-vragen" onclick="questionsNav('back')"></button>
                 <a target="_blank" href="https://github.com/99062653"><img id="logo-vragen" src="img/logo.svg" alt="Stemwijzer Header Logo"></a>
                 <div id="count-vragen"></div>
             </div>
             <div id="middel-vragen"> 
                 <h1 id="titel-vragen"></h1>
                 <h2 id="subtitel-vragen"></h2>
-
                 <div id="buttons-vragen">
-                    <button class="buttons" onclick="questionBackOrNext('next')">Eens</button>
-                    <button class="buttons" onclick="questionBackOrNext('next')">Geen van beide</button>
-                    <button class="buttons" onclick="questionBackOrNext('next')">Oneens</button>
-                    <button class="skip" onclick="questionBackOrNext('next')">Overslaan</button>
+                    <button id="agree-button" class="buttons" onclick="questionsNav('next', 'pro')">Eens</button>
+                    <button id="neither-button" class="buttons" onclick="questionsNav('next', 'neither')">Geen van beide</button>
+                    <button id="disagree-button" class="buttons" onclick="questionsNav('next', 'constra')">Oneens</button>
+                    <button id="skip-button" class="skip" onclick="questionsNav('next', 'none')">Overslaan</button>
                 </div>
             </div>
         </div>
