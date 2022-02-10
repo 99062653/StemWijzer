@@ -1,5 +1,6 @@
 var _index = 0;
 var _choices = [];
+const _parties = [];
 
 function stemwijzerMain() {
     const _startpagina = document.getElementById("start-container");
@@ -8,8 +9,10 @@ function stemwijzerMain() {
     const _resultpagina = document.getElementById("result-container");
 
     if (_index == subjects.length) {
+        //eigenlijk moet hier die selects komen in plaats van GELIJK result pagina
         _vragenpagina.style.display = "none";
         _resultpagina.style.display = "block";
+        // _allevragenpagina.style.display = "block";
     } else {
         if (_index >= 0) {
             _startpagina.style.display = "none";
@@ -64,6 +67,13 @@ function loadQuestions(index) {
 }
 
 function questionsNav(dir, state) {
+    saveResult(state);
+
+    dir == "next" ? _index++ : _index--;
+    stemwijzerMain();
+}
+
+function saveResult(state) {
     switch (state) {
         case "pro":
             _choices[_index] = "pro";
@@ -78,6 +88,7 @@ function questionsNav(dir, state) {
             _choices[_index] = "none";
             break;
     }
-    dir == "next" ? _index++ : _index--;
-    stemwijzerMain();
+    for (var r = 0; r < subjects[_index].parties.length; r++) {
+        console.log(subjects[_index].parties[r].name + " " + subjects[_index].parties[r].position);
+    }
 }
