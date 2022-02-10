@@ -1,0 +1,6 @@
+https://www.freecodecamp.org/news/var-let-and-const-whats-the-difference/
+
+let = kan niet op nieuw gedeclared worden
+zelfde voor const
+
+ternary operator: ? = true : = else 

@@ -1,20 +1,10 @@
 var _index = 0;
 var _choices = [];
 
-var _startpagina = document.getElementById("start-container");
-var _vragenpagina = document.getElementById("vragen-container");
-
-var _progress = document.getElementById("progress-vragen");
-var _counter = document.getElementById("count-vragen");
-var _titel = document.getElementById("titel-vragen");
-var _subtitel = document.getElementById("subtitel-vragen");
-
-var _eensKnop = document.getElementById("agree-button");
-var _neitherKnop = document.getElementById("neither-button");
-var _oneensKnop = document.getElementById("disagree-button");
-var _skipKnop = document.getElementById("skip-button");
-
 function stemwijzerMain() {
+    const _startpagina = document.getElementById("start-container");
+    const _vragenpagina = document.getElementById("vragen-container");
+    
     if (_index >= 0) {
         _startpagina.style.visibility = "hidden";
         _vragenpagina.style.visibility = "visible";
@@ -29,11 +19,22 @@ function stemwijzerMain() {
 }
 
 function loadQuestions(index) {
+    const _progress = document.getElementById("progress-vragen");
+    const _counter = document.getElementById("count-vragen");
+    const _titel = document.getElementById("titel-vragen");
+    const _subtitel = document.getElementById("subtitel-vragen");
+
+    const _eensKnop = document.getElementById("agree-button");
+    const _neitherKnop = document.getElementById("neither-button");
+    const _oneensKnop = document.getElementById("disagree-button");
+    const _skipKnop = document.getElementById("skip-button");
+
     if (_choices.length == 0) {
         for (var r = 0; r < subjects.length; r++) {
             _choices.push(null);
         }
     }
+
     console.log(_choices);
     _progress.style.width = index / subjects.length * 100 + "%";
     _counter.innerText = index + " / " + subjects.length;
@@ -51,9 +52,6 @@ function loadQuestions(index) {
             break;
         case "neither":
             _neitherKnop.style.border = "3px solid #000";
-            break;
-        case "none":
-            _skipKnop.style.border = "3px solid #000";
             break;
     }
 }
@@ -73,6 +71,6 @@ function questionsNav(dir, state) {
             _choices[_index] = "none";
             break;
     }
-    dir == "next" ? _index++ : _index--; //ternary operator: ? = true : = else 
+    dir == "next" ? _index++ : _index--;
     stemwijzerMain();
 }
