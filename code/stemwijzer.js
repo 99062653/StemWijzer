@@ -4,17 +4,24 @@ var _choices = [];
 function stemwijzerMain() {
     const _startpagina = document.getElementById("start-container");
     const _vragenpagina = document.getElementById("vragen-container");
-    
-    if (_index >= 0) {
-        _startpagina.style.visibility = "hidden";
-        _vragenpagina.style.visibility = "visible";
-        
-        loadQuestions(_index)
-    } else {
-        _vragenpagina.style.visibility = "hidden";
-        _startpagina.style.visibility = "visible";
+    const _allevragenpagina = document.getElementById("allevragen-container");
+    const _resultpagina = document.getElementById("result-container");
 
-        _index = 0;
+    if (_index == subjects.length) {
+        _vragenpagina.style.display = "none";
+        _resultpagina.style.display = "block";
+    } else {
+        if (_index >= 0) {
+            _startpagina.style.display = "none";
+            _vragenpagina.style.display = "block";
+
+            loadQuestions(_index)
+        } else {
+            _vragenpagina.style.display = "none";
+            _startpagina.style.display = "block";
+
+            _index = 0;
+        }
     }
 }
 
@@ -27,21 +34,21 @@ function loadQuestions(index) {
     const _eensKnop = document.getElementById("agree-button");
     const _neitherKnop = document.getElementById("neither-button");
     const _oneensKnop = document.getElementById("disagree-button");
-    const _skipKnop = document.getElementById("skip-button");
+    var _indexCalculated = index + 1;
 
     if (_choices.length == 0) {
         for (var r = 0; r < subjects.length; r++) {
             _choices.push(null);
         }
     }
-
     console.log(_choices);
-    _progress.style.width = index / subjects.length * 100 + "%";
-    _counter.innerText = index + " / " + subjects.length;
+
+    _progress.style.width = _indexCalculated / subjects.length * 100 + "%";
+    _counter.innerText = _indexCalculated + " / " + subjects.length;
     _titel.innerText = subjects[index].title;
     _subtitel.innerText = subjects[index].statement;
-    _eensKnop.style.border = "none", _neitherKnop.style.border = "none", 
-    _oneensKnop.style.border = "none", _skipKnop.style.border = "none";
+    _eensKnop.style.border = "none", _neitherKnop.style.border = "none",
+    _oneensKnop.style.border = "none";
 
     switch (_choices[index]) {
         case "pro":

@@ -49,9 +49,9 @@ body {
     background-color: #5e005e;
 }
 
-#vragen-container {
+#vragen-container, #allevragen-container, #result-container {
+    display: none;
     position: absolute;
-    visibility: hidden;
     background-color: #fff;
     width: 100%;
     height: 100%;
@@ -62,7 +62,7 @@ body {
     background-color: #800080;
 }
 
-#header-vragen {
+#header-vragen, #header-result {
     position: absolute;
     display: flex;
     align-items: center;
@@ -83,12 +83,12 @@ body {
     background: url("../img/back.svg") #cccfcf 50%/24px no-repeat;
 }
 
-#logo-vragen {
+#logo-vragen, #logo-result {
     width: 125px;
     height: 25px;
 }
 
-#middel-vragen {
+#middel-vragen, #middel-result {
     position: absolute;
     left: 50%;
     top: 50%;
