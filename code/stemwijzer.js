@@ -1,6 +1,6 @@
 var _index = 0;
 var _choices = [];
-const _parties = [];
+var _parties = [];
 
 function stemwijzerMain() {
     const _startpagina = document.getElementById("start-container");
@@ -37,14 +37,26 @@ function loadQuestions(index) {
     const _eensKnop = document.getElementById("agree-button");
     const _neitherKnop = document.getElementById("neither-button");
     const _oneensKnop = document.getElementById("disagree-button");
-    var _indexCalculated = index + 1;
+    var _indexCalculated = (index + 1);
 
     if (_choices.length == 0) {
         for (var r = 0; r < subjects.length; r++) {
             _choices.push(null);
         }
     }
+    if (_parties.length == 0) {
+        for (var r = 0; r < parties.length; r++) {
+            _parties.push({
+                name: parties[r].name,
+                actualname: parties[r].long,
+                secular: parties[r].secular,
+                size: parties[r].size,
+                similarities: 0
+            })
+        }
+    }
     console.log(_choices);
+    console.log(_parties);
 
     _progress.style.width = _indexCalculated / subjects.length * 100 + "%";
     _counter.innerText = _indexCalculated + " / " + subjects.length;
@@ -67,9 +79,8 @@ function loadQuestions(index) {
 }
 
 function questionsNav(dir, state) {
-    saveResult(state);
-
-    dir == "next" ? _index++ : _index--;
+    dir == "next" ? saveResult(state) & _index++ : _index--;
+    
     stemwijzerMain();
 }
 
@@ -89,6 +100,13 @@ function saveResult(state) {
             break;
     }
     for (var r = 0; r < subjects[_index].parties.length; r++) {
-        console.log(subjects[_index].parties[r].name + " " + subjects[_index].parties[r].position);
+        if (state == subjects[_index].parties[r].position.toString()) {
+            var _indexParty = _parties.findIndex(x => x.name === subjects[_index].parties[r].name);
+            _parties[_indexParty].similarities++
+
+
+            console.log("similarities with: " + subjects[_index].parties[r].name);
+            console.log(_indexParty);
+        }
     }
 }
