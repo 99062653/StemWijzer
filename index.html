@@ -22,7 +22,7 @@
         <div id="inner-vragen">
             <div id="progress-vragen"></div>
             <div id="header-vragen">
-                <button id="buttonback-vragen" onclick="questionsNav('back')"></button>
+                <button id="buttonback-vragen" onclick="stemwijzerNav('back')"></button>
                 <a target="_blank" href="https://github.com/99062653"><img id="logo-vragen" src="img/logo.svg" alt="Stemwijzer Header Logo"></a>
                 <div id="count-vragen"></div>
             </div>
@@ -30,17 +30,30 @@
                 <h1 id="titel-vragen"></h1>
                 <h2 id="subtitel-vragen"></h2>
                 <div id="buttons-vragen">
-                    <button id="agree-button" class="buttons" onclick="questionsNav('next', 'pro')">Eens</button>
-                    <button id="neither-button" class="buttons" onclick="questionsNav('next', 'neither')">Geen van beide</button>
-                    <button id="disagree-button" class="buttons" onclick="questionsNav('next', 'constra')">Oneens</button>
-                    <button id="skip-button" class="skip" onclick="questionsNav('next', 'none')">Overslaan</button>
+                    <button id="agree-button" class="buttons" onclick="stemwijzerNav('next', 'pro')">Eens</button>
+                    <button id="neither-button" class="buttons" onclick="stemwijzerNav('next', 'neither')">Geen van beide</button>
+                    <button id="disagree-button" class="buttons" onclick="stemwijzerNav('next', 'constra')">Oneens</button>
+                    <button id="skip-button" class="skip" onclick="stemwijzerNav('next', 'none')">Overslaan</button>
                 </div>
             </div>
         </div>
     </div>
-    <div id="allevragen-container">
-        <div id="inner-vragen">
+    <div id="selects-container">
+        <div id="inner-selects">
+            <div id="progress-vragen"></div>
+            <div id="header-vragen">
+                <button id="buttonback-vragen" onclick="stemwijzerNav('back')"></button>
+                <a target="_blank" href="https://github.com/99062653"><img id="logo-vragen" src="img/logo.svg" alt="Stemwijzer Header Logo"></a>
+                <div id="count-vragen"></div>
+            </div> 
+            <div id="middel-selects">
+                <h1 id="titel-selects">Zijn er onderwerpen die u extra belangrijk vindt?</h1>
+                <h2 id="subtitel-selects">Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat</h2>
+                <div id="table-selects">
 
+                </div>
+                <button id="result-button" class="buttons" onclick="submitSelects()">Naar resultaat</button>
+            </div>
         </div>
     </div>
     <div id="result-container">
@@ -49,7 +62,7 @@
                 <a target="_blank" href="https://github.com/99062653"><img id="logo-result" src="img/logo.svg" alt="Stemwijzer Header Logo"></a>
             </div>
             <div id="middel-result">
-                
+               
                 
             </div>  
         </div>

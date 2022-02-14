@@ -1,31 +1,46 @@
 var _index = 0;
 var _choices = [];
 var _parties = [];
+var _selects = [];
 
-function stemwijzerMain() {
+function stemwijzerMain(result) {
     const _startpagina = document.getElementById("start-container");
     const _vragenpagina = document.getElementById("vragen-container");
-    const _allevragenpagina = document.getElementById("allevragen-container");
+    const _selectspagina = document.getElementById("selects-container");
     const _resultpagina = document.getElementById("result-container");
 
-    if (_index == subjects.length) {
-        //eigenlijk moet hier die selects komen in plaats van GELIJK result pagina
-        _vragenpagina.style.display = "none";
+    if (result == true) {
+        _selectspagina.style.display = "none";
         _resultpagina.style.display = "block";
-        // _allevragenpagina.style.display = "block";
+
+        loadResult();
     } else {
-        if (_index >= 0) {
-            _startpagina.style.display = "none";
-            _vragenpagina.style.display = "block";
-
-            loadQuestions(_index)
-        } else {
+        if (_index == subjects.length) {
             _vragenpagina.style.display = "none";
-            _startpagina.style.display = "block";
+            _selectspagina.style.display = "block";
 
-            _index = 0;
+            loadSelects();
+        } else {
+            if (_index >= 0) {
+                _startpagina.style.display = "none";
+                _selectspagina.style.display = "none";
+                _vragenpagina.style.display = "block";
+
+                loadQuestions(_index)
+            } else {
+                _vragenpagina.style.display = "none";
+                _startpagina.style.display = "block";
+
+                _index = 0;
+            }
         }
     }
+}
+
+function stemwijzerNav(dir, state) {
+    dir == "next" ? saveResult(state) & _index++ : _index--;
+
+    stemwijzerMain();
 }
 
 function loadQuestions(index) {
@@ -41,7 +56,10 @@ function loadQuestions(index) {
 
     if (_choices.length == 0) {
         for (var r = 0; r < subjects.length; r++) {
-            _choices.push(null);
+            _choices.push({
+                name: subjects[r].title,
+                opinion: null
+            });
         }
     }
     if (_parties.length == 0) {
@@ -54,18 +72,18 @@ function loadQuestions(index) {
                 similarities: 0
             })
         }
+        console.log(_parties);
     }
     console.log(_choices);
-    console.log(_parties);
 
     _progress.style.width = _indexCalculated / subjects.length * 100 + "%";
     _counter.innerText = _indexCalculated + " / " + subjects.length;
     _titel.innerText = subjects[index].title;
     _subtitel.innerText = subjects[index].statement;
     _eensKnop.style.border = "none", _neitherKnop.style.border = "none",
-    _oneensKnop.style.border = "none";
+        _oneensKnop.style.border = "none";
 
-    switch (_choices[index]) {
+    switch (_choices[index].opinion) {
         case "pro":
             _eensKnop.style.border = "3px solid #000";
             break;
@@ -78,35 +96,67 @@ function loadQuestions(index) {
     }
 }
 
-function questionsNav(dir, state) {
-    dir == "next" ? saveResult(state) & _index++ : _index--;
-    
-    stemwijzerMain();
+function loadSelects() {
+    const _table = document.getElementById("table-selects");
+
+    if (_selects.length == 0) {
+        for (var r = 0; r < _choices.length; r++) {
+            _selects.push(null);
+        }
+    }
+
+    for (var r = 0; r < _choices.length; r++) {
+        const _option = document.createElement("div");
+        const _checkbox = document.createElement("input");
+
+        _option.className = "select";
+        _option.innerText = _choices[r].name;
+        _option.id = "select_" + r;
+        _checkbox.setAttribute("type", "checkbox");
+        _checkbox.id = "subject_" + r;
+        _option.appendChild(_checkbox);
+        _table.appendChild(_option);
+    }
+
+}
+
+function loadResult() {
+    for (var r = 0; r < subjects.length; r++) {
+        for (var h = 0; h < subjects[r].parties.length; h++) {
+            if (_choices[r].opinion == subjects[r].parties[h].position) {
+                var _indexParty = _parties.findIndex(x => x.name === subjects[r].parties[h].name);
+                _parties[_indexParty].similarities++
+            }
+        }
+    }
+    console.log(_parties);
+}
+
+function submitSelects() {
+    for (var r = 0; r < _choices.length; r++) {
+        var _checkboxes = document.getElementById("subject_" + r);
+
+        if (_checkboxes.checked) {
+            _selects[r] = 1;
+        }
+    }
+
+    stemwijzerMain(true);
 }
 
 function saveResult(state) {
     switch (state) {
         case "pro":
-            _choices[_index] = "pro";
+            _choices[_index].opinion = "pro";
             break;
         case "constra":
-            _choices[_index] = "constra";
+            _choices[_index].opinion = "constra";
             break;
         case "neither":
-            _choices[_index] = "neither";
+            _choices[_index].opinion = "neither";
             break;
         case "none":
-            _choices[_index] = "none";
+            _choices[_index].opinion = "none";
             break;
-    }
-    for (var r = 0; r < subjects[_index].parties.length; r++) {
-        if (state == subjects[_index].parties[r].position.toString()) {
-            var _indexParty = _parties.findIndex(x => x.name === subjects[_index].parties[r].name);
-            _parties[_indexParty].similarities++
-
-
-            console.log("similarities with: " + subjects[_index].parties[r].name);
-            console.log(_indexParty);
-        }
     }
 }
