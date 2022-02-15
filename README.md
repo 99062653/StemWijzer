@@ -2,6 +2,6 @@
 BovenBouw opdracht
 
 
-https://trello.com/b/yTMUV1j6/stemwijzer
+https://trello.com/b/uuxdcDCT/stemwijzer
 
 Gemaakt door Rick Huisman.
