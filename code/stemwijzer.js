@@ -120,7 +120,7 @@ function loadSelects() {
 }   
 
 function loadResult() {
-    const _table = document.getElementById("table-results");
+    const _table = document.getElementById("table-result");
     for (var r = 0; r < subjects.length; r++) {
         for (var h = 0; h < subjects[r].parties.length; h++) {
             if (_choices[r].opinion == subjects[r].parties[h].position) {
@@ -135,7 +135,30 @@ function loadResult() {
             }
         }
     }
-    console.log(_parties);
+    _parties.sort((a, b) => {
+        return b.similarities - a.similarities;
+    });
+
+    for (var r = 0; r < 3; r++) {
+        var _element = document.createElement("div");
+        var _titel = document.createElement("h1");
+        var _overeenkomsten = document.createElement("h2");
+
+        _element.className = "result";
+        _titel.id = "titel-result";
+        _overeenkomsten.id = "subtitel-result";
+        _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _parties[r].similarities;
+
+        if (_parties[r].actualname != undefined) {
+            _titel.innerText = _parties[r].actualname;
+        } else {
+            _titel.innerText = _parties[r].name;
+        }
+
+        _element.appendChild(_titel);
+        _element.appendChild(_overeenkomsten)
+        _table.appendChild(_element);
+    }
 }
 
 function submitSelects() {
