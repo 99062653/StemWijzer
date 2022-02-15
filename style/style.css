@@ -92,7 +92,7 @@ body {
     line-height: 44px;   
 }
 
-#subtitel-vragen, #subtitel-selects, #subtitel-result {
+#subtitel-vragen, #subtitel-selects {
     position: relative;
     z-index: 5;
     width: 100%;
@@ -168,5 +168,6 @@ input {
 
 #table-result {
     display: grid;
-    grid-template-columns: 750px;
+    grid-gap: 10px;
+    grid-template-columns: 375px 375px;
 }

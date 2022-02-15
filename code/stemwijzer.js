@@ -117,9 +117,9 @@ function loadSelects() {
             _table.appendChild(_option);
         }
     }
-}   
+}
 
-function loadResult() {
+function loadResult(filter) {
     const _table = document.getElementById("table-result");
     for (var r = 0; r < subjects.length; r++) {
         for (var h = 0; h < subjects[r].parties.length; h++) {
@@ -130,24 +130,26 @@ function loadResult() {
                     _parties[_indexParty].similarities++
                     _parties[_indexParty].similarities++
                 } else {
-                   _parties[_indexParty].similarities++
+                    _parties[_indexParty].similarities++
                 }
             }
         }
     }
+
     _parties.sort((a, b) => {
         return b.similarities - a.similarities;
     });
 
-    for (var r = 0; r < 3; r++) {
+    for (var r = 0; r < 10; r++) {
         var _element = document.createElement("div");
         var _titel = document.createElement("h1");
-        var _overeenkomsten = document.createElement("h2");
+        var _overeenkomsten = document.createElement("p");
+        var _grote = document.createElement("p");
 
         _element.className = "result";
         _titel.id = "titel-result";
-        _overeenkomsten.id = "subtitel-result";
         _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _parties[r].similarities;
+        _grote.innerText = "Aantal zetels: " + _parties[r].size;
 
         if (_parties[r].actualname != undefined) {
             _titel.innerText = _parties[r].actualname;
@@ -156,7 +158,8 @@ function loadResult() {
         }
 
         _element.appendChild(_titel);
-        _element.appendChild(_overeenkomsten)
+        _element.appendChild(_overeenkomsten);
+        _element.appendChild(_grote);
         _table.appendChild(_element);
     }
 }
