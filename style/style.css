@@ -34,21 +34,6 @@ body {
     color: #000;
 }
 
-.start_button {
-    border: 3px solid transparent;
-    border-radius: 16px;
-    padding: 21px 29px;
-    background-color: #800080;
-    font-weight: 700;
-    font-size: 22px;
-    line-height: 100%;
-    color: #fff;
-    cursor: pointer;
-} 
-.start_button:hover {
-    background-color: #5e005e;
-}
-
 #vragen-container, #selects-container, #result-container {
     display: none;
     position: absolute;
@@ -128,7 +113,6 @@ body {
     position: relative;
     display: flex;
     align-items: center;
-    flex-shrink: 0;
     border: 3px solid transparent;
     border-radius: 16px;
     padding: 21px 29px;
@@ -137,7 +121,6 @@ body {
     font-size: 22px;
     line-height: 100%;
     color: #fff;
-    text-align: left;
     cursor: pointer;
 }
 .buttons:hover {
@@ -168,7 +151,7 @@ body {
 }
 
 .select {
-    border-bottom: 1.5px solid grey;
+    border-bottom: 1.5px solid #800080;
 }
 
 input {
@@ -180,4 +163,8 @@ input {
 
 #result-button {
     float: right;
+}
+
+#table-results {
+    
 }

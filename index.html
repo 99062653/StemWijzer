@@ -15,7 +15,7 @@
             <h1 class="start_title">Tweede Kamerverkiezingen 2022</h1>
             <h2 class="start_subtitle">Test je politieke voorkeur aan de hand van 30 stellingen</h2>
 
-            <button class="start_button" onclick="stemwijzerMain()">Start</button>
+            <button class="buttons" onclick="stemwijzerMain()">Start</button>
         </div>
     </div>
     <div id="vragen-container">
@@ -50,7 +50,7 @@
                 <h1 id="titel-selects">Zijn er onderwerpen die u extra belangrijk vindt?</h1>
                 <h2 id="subtitel-selects">Aangevinkte stellingen tellen extra mee bij het berekenen van het resultaat</h2>
                 <div id="table-selects">
-
+                    
                 </div>
                 <button id="result-button" class="buttons" onclick="submitSelects()">Naar resultaat</button>
             </div>
@@ -58,12 +58,14 @@
     </div>
     <div id="result-container">
         <div id="inner-result">
+            <div id="progress-vragen"></div>
             <div id="header-result">
                 <a target="_blank" href="https://github.com/99062653"><img id="logo-result" src="img/logo.svg" alt="Stemwijzer Header Logo"></a>
             </div>
             <div id="middel-result">
-               
-                
+                <div id="table-results">
+
+                </div>
             </div>  
         </div>
     </div>

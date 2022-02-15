@@ -100,32 +100,38 @@ function loadSelects() {
     const _table = document.getElementById("table-selects");
 
     if (_selects.length == 0) {
-        for (var r = 0; r < _choices.length; r++) {
+        for (var r = 0; r < subjects.length; r++) {
             _selects.push(null);
         }
+
+        for (var r = 0; r < subjects.length; r++) {
+            const _option = document.createElement("div");
+            const _checkbox = document.createElement("input");
+
+            _option.className = "select";
+            _option.innerText = subjects[r].title;
+            _option.id = "select_" + r;
+            _checkbox.setAttribute("type", "checkbox");
+            _checkbox.id = "subject_" + r;
+            _option.appendChild(_checkbox);
+            _table.appendChild(_option);
+        }
     }
-
-    for (var r = 0; r < _choices.length; r++) {
-        const _option = document.createElement("div");
-        const _checkbox = document.createElement("input");
-
-        _option.className = "select";
-        _option.innerText = _choices[r].name;
-        _option.id = "select_" + r;
-        _checkbox.setAttribute("type", "checkbox");
-        _checkbox.id = "subject_" + r;
-        _option.appendChild(_checkbox);
-        _table.appendChild(_option);
-    }
-
-}
+}   
 
 function loadResult() {
+    const _table = document.getElementById("table-results");
     for (var r = 0; r < subjects.length; r++) {
         for (var h = 0; h < subjects[r].parties.length; h++) {
             if (_choices[r].opinion == subjects[r].parties[h].position) {
                 var _indexParty = _parties.findIndex(x => x.name === subjects[r].parties[h].name);
-                _parties[_indexParty].similarities++
+
+                if (_selects[r] == 1) {
+                    _parties[_indexParty].similarities++
+                    _parties[_indexParty].similarities++
+                } else {
+                   _parties[_indexParty].similarities++
+                }
             }
         }
     }
@@ -133,7 +139,7 @@ function loadResult() {
 }
 
 function submitSelects() {
-    for (var r = 0; r < _choices.length; r++) {
+    for (var r = 0; r < subjects.length; r++) {
         var _checkboxes = document.getElementById("subject_" + r);
 
         if (_checkboxes.checked) {
