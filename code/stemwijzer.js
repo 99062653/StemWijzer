@@ -105,8 +105,8 @@ function loadSelects() {
         }
 
         for (var r = 0; r < subjects.length; r++) {
-            const _option = document.createElement("div");
-            const _checkbox = document.createElement("input");
+            let _option = document.createElement("div");
+            let _checkbox = document.createElement("input");
 
             _option.className = "select";
             _option.innerText = subjects[r].title;
@@ -120,7 +120,10 @@ function loadSelects() {
 }
 
 function loadResult(filter) {
+    var _orderedParties = _parties;
     const _table = document.getElementById("table-result");
+    const _filterBig = document.getElementById("filter-big");
+    const _filterSecular = document.getElementById("filter-secular");
     for (var r = 0; r < subjects.length; r++) {
         for (var h = 0; h < subjects[r].parties.length; h++) {
             if (_choices[r].opinion == subjects[r].parties[h].position) {
@@ -136,31 +139,45 @@ function loadResult(filter) {
         }
     }
 
-    _parties.sort((a, b) => {
+    _orderedParties.sort((a, b) => {
         return b.similarities - a.similarities;
     });
 
-    for (var r = 0; r < 10; r++) {
-        var _element = document.createElement("div");
-        var _titel = document.createElement("h1");
-        var _overeenkomsten = document.createElement("p");
-        var _grote = document.createElement("p");
+    if (filter == "bigOnly") {
+        if (!_filterBig.style.border) {
+            _filterBig.style.border = "3px solid #000";
 
-        _element.className = "result";
-        _titel.id = "titel-result";
-        _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _parties[r].similarities;
-        _grote.innerText = "Aantal zetels: " + _parties[r].size;
-
-        if (_parties[r].actualname != undefined) {
-            _titel.innerText = _parties[r].actualname;
         } else {
-            _titel.innerText = _parties[r].name;
+            _filterBig.style.border = "";
         }
+    }
 
-        _element.appendChild(_titel);
-        _element.appendChild(_overeenkomsten);
-        _element.appendChild(_grote);
-        _table.appendChild(_element);
+    try {
+        for (var r = 0; r < 10; r++) {
+            let _element = document.createElement("div");
+            let _titel = document.createElement("h1");
+            let _overeenkomsten = document.createElement("p");
+            let _grote = document.createElement("p");
+
+            _element.className = "result";
+            _titel.id = "titel-result";
+            _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _orderedParties[r].similarities;
+            _grote.innerText = "Aantal zetels: " + _orderedParties[r].size;
+
+            if (_orderedParties[r].actualname != undefined) {
+                _titel.innerText = _orderedParties[r].actualname;
+            } else {
+                _titel.innerText = _orderedParties[r].name;
+            }
+
+            _element.appendChild(_titel);
+            _element.appendChild(_overeenkomsten);
+            _element.appendChild(_grote);
+            _table.appendChild(_element);
+        }
+    }
+    catch (error) {
+        //try toegevoegd zodat ik tijdens het gebruiken van testdata geen error krijg. (vind ik vervelend)
     }
 }
 
