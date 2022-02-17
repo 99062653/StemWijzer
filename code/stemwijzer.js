@@ -151,33 +151,17 @@ function loadResult(filter) {
             }
         }
     }
-
     _orderedParties.sort((a, b) => {
         return b.similarities - a.similarities;
     });
 
     for (var r = 0; r < 10; r++) {
-        let _element = document.createElement("div");
-        let _titel = document.createElement("h1");
-        let _overeenkomsten = document.createElement("p");
-        let _grote = document.createElement("p");
+        let _result = document.createElement("div");
+        _result.className = "result";
 
-        _element.className = "result";
-        _titel.id = "titel-result";
-        _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _orderedParties[r].similarities;
-        _grote.innerText = "Aantal zetels: " + _orderedParties[r].size;
-
-        if (_orderedParties[r].actualname != undefined) {
-            _titel.innerText = _orderedParties[r].actualname;
-        } else {
-            _titel.innerText = _orderedParties[r].name;
-        }
-
-        _element.appendChild(_titel);
-        _element.appendChild(_overeenkomsten);
-        _element.appendChild(_grote);
-        _table.appendChild(_element);
+        _table.appendChild(_result);
     }
+
 }
 
 function saveChoice(state) {
