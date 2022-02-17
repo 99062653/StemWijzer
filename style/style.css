@@ -84,7 +84,7 @@ body {
     transform: translate(-50%, -50%);
 }
 
-#titel-vragen, #titel-selects, #titel-result {
+#titel-vragen, #titel-selects, #titel-result, #titel-results {
     color: #800080;
     margin-bottom: 8px;
     font-weight: 700;
@@ -92,7 +92,7 @@ body {
     line-height: 44px;   
 }
 
-#subtitel-vragen, #subtitel-selects {
+#subtitel-vragen, #subtitel-selects, #subtitel-result {
     position: relative;
     z-index: 5;
     width: 100%;

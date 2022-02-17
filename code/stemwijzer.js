@@ -13,7 +13,7 @@ function stemwijzerMain(result) {
         _selectspagina.style.display = "none";
         _resultpagina.style.display = "block";
 
-        loadResult();
+        calculateResult();
     } else {
         if (_index == subjects.length) {
             _vragenpagina.style.display = "none";
@@ -72,9 +72,7 @@ function loadQuestions(index) {
                 similarities: 0
             })
         }
-        console.log(_parties);
     }
-    console.log(_choices);
 
     _progress.style.width = _indexCalculated / subjects.length * 100 + "%";
     _counter.innerText = _indexCalculated + " / " + subjects.length;
@@ -119,15 +117,15 @@ function loadSelects() {
         }
     }
 
-    _resultButton.addEventListener("click", function() {
+    _resultButton.addEventListener("click", function () {
         for (var r = 0; r < subjects.length; r++) {
             var _checkboxes = document.getElementById("subject_" + r);
-    
+
             if (_checkboxes.checked) {
                 _selects[r] = 1;
             }
         }
-    
+
         stemwijzerMain(true);
     });
 }
@@ -137,6 +135,62 @@ function loadResult(filter) {
     const _table = document.getElementById("table-result");
     const _filterBig = document.getElementById("filter-big");
     const _filterSecular = document.getElementById("filter-secular");
+
+    _orderedParties.sort((a, b) => {
+        return b.similarities - a.similarities;
+    });
+
+    if (filter == "bigOnly") {
+        _filterBig.remove();
+        _table.innerHTML = "";
+
+        for (var r = 0; r < _orderedParties.length; r++) {
+            if (_orderedParties[r].size > 10) {
+                _orderedParties.splice(r, 1);
+            }
+        }
+    }
+
+    if (filter == "secularOnly") {
+        _filterSecular.remove();
+        _table.innerHTML = "";
+
+        for (var r = 0; r < _orderedParties.length; r++) {
+            if (_orderedParties[r].secular == false) {
+                _orderedParties.splice(r, 1);
+            }
+        }
+    }
+
+    console.log(_orderedParties);
+    try {
+        for (var r = 0; r < 10; r++) {
+            let _result = document.createElement("div");
+            let _titel = document.createElement("h1");
+            let _similarities = document.createElement("p");
+            let _size = document.createElement("p");
+
+            _result.className = "result";
+            _titel.id = "titel-results";
+            if (_orderedParties[r].actualname != undefined) {
+                _titel.innerText = _orderedParties[r].actualname;
+            } else {
+                _titel.innerText = _orderedParties[r].name;
+            }
+            _similarities.innerText = "Overeenkomsten met deze partij: " + _orderedParties[r].similarities;
+            _size.innerText = "Aantal zetels: " + _orderedParties[r].size;
+
+            _table.appendChild(_result);
+            _result.appendChild(_titel);
+            _result.appendChild(_similarities)
+            _result.appendChild(_size);
+        }
+    } catch (error) {
+        //try catch toegevoegd voor testdata zodat ik geen errors krijg in de console
+    }
+}
+
+function calculateResult() {
     for (var r = 0; r < subjects.length; r++) {
         for (var h = 0; h < subjects[r].parties.length; h++) {
             if (_choices[r].opinion == subjects[r].parties[h].position) {
@@ -151,17 +205,7 @@ function loadResult(filter) {
             }
         }
     }
-    _orderedParties.sort((a, b) => {
-        return b.similarities - a.similarities;
-    });
-
-    for (var r = 0; r < 10; r++) {
-        let _result = document.createElement("div");
-        _result.className = "result";
-
-        _table.appendChild(_result);
-    }
-
+    loadResult();
 }
 
 function saveChoice(state) {
