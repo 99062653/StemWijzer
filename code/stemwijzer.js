@@ -38,7 +38,7 @@ function stemwijzerMain(result) {
 }
 
 function stemwijzerNav(dir, state) {
-    dir == "next" ? saveResult(state) & _index++ : _index--;
+    dir == "next" ? saveChoice(state) & _index++ : _index--;
 
     stemwijzerMain();
 }
@@ -98,6 +98,7 @@ function loadQuestions(index) {
 
 function loadSelects() {
     const _table = document.getElementById("table-selects");
+    const _resultButton = document.getElementById("result-button");
 
     if (_selects.length == 0) {
         for (var r = 0; r < subjects.length; r++) {
@@ -117,6 +118,18 @@ function loadSelects() {
             _table.appendChild(_option);
         }
     }
+
+    _resultButton.addEventListener("click", function() {
+        for (var r = 0; r < subjects.length; r++) {
+            var _checkboxes = document.getElementById("subject_" + r);
+    
+            if (_checkboxes.checked) {
+                _selects[r] = 1;
+            }
+        }
+    
+        stemwijzerMain(true);
+    });
 }
 
 function loadResult(filter) {
@@ -143,57 +156,31 @@ function loadResult(filter) {
         return b.similarities - a.similarities;
     });
 
-    if (filter == "bigOnly") {
-        if (!_filterBig.style.border) {
-            _filterBig.style.border = "3px solid #000";
+    for (var r = 0; r < 10; r++) {
+        let _element = document.createElement("div");
+        let _titel = document.createElement("h1");
+        let _overeenkomsten = document.createElement("p");
+        let _grote = document.createElement("p");
 
+        _element.className = "result";
+        _titel.id = "titel-result";
+        _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _orderedParties[r].similarities;
+        _grote.innerText = "Aantal zetels: " + _orderedParties[r].size;
+
+        if (_orderedParties[r].actualname != undefined) {
+            _titel.innerText = _orderedParties[r].actualname;
         } else {
-            _filterBig.style.border = "";
+            _titel.innerText = _orderedParties[r].name;
         }
-    }
 
-    try {
-        for (var r = 0; r < 10; r++) {
-            let _element = document.createElement("div");
-            let _titel = document.createElement("h1");
-            let _overeenkomsten = document.createElement("p");
-            let _grote = document.createElement("p");
-
-            _element.className = "result";
-            _titel.id = "titel-result";
-            _overeenkomsten.innerText = "Overeenkomsten met deze partij: " + _orderedParties[r].similarities;
-            _grote.innerText = "Aantal zetels: " + _orderedParties[r].size;
-
-            if (_orderedParties[r].actualname != undefined) {
-                _titel.innerText = _orderedParties[r].actualname;
-            } else {
-                _titel.innerText = _orderedParties[r].name;
-            }
-
-            _element.appendChild(_titel);
-            _element.appendChild(_overeenkomsten);
-            _element.appendChild(_grote);
-            _table.appendChild(_element);
-        }
-    }
-    catch (error) {
-        //try toegevoegd zodat ik tijdens het gebruiken van testdata geen error krijg. (vind ik vervelend)
+        _element.appendChild(_titel);
+        _element.appendChild(_overeenkomsten);
+        _element.appendChild(_grote);
+        _table.appendChild(_element);
     }
 }
 
-function submitSelects() {
-    for (var r = 0; r < subjects.length; r++) {
-        var _checkboxes = document.getElementById("subject_" + r);
-
-        if (_checkboxes.checked) {
-            _selects[r] = 1;
-        }
-    }
-
-    stemwijzerMain(true);
-}
-
-function saveResult(state) {
+function saveChoice(state) {
     switch (state) {
         case "pro":
             _choices[_index].opinion = "pro";
